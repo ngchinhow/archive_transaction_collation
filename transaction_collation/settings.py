@@ -30,7 +30,10 @@ ENV_DOCPARSER_API_KEY = env('docparser_api_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '7f2452dd97ac44.lhrtunnel.link'
+]
 
 
 # Application definition

@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from extractor.views import nanonets_webhook, test_docparser
+from extractor.views import docparser_webhook, test_docparser
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('docparser', test_docparser),
-    path('nanonets_webhook', nanonets_webhook)
+    path('docparser/webhook', docparser_webhook),
+    path('docparser', test_docparser)
 ]
