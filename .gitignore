@@ -131,6 +131,7 @@ dmypy.json
 
 # project stuff
 transactions/
+notes.txt
 
 IDE stuff
 .idea/
