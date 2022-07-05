@@ -12,9 +12,8 @@ class UOBAccountMapper:
 
 
 class UOBCardMapper:
-
     @staticmethod
-    def map_transactions(data):
+    def map_transactions(data: dict) -> list[Transaction]:
         transactions: list[Transaction] = []
         i = 0
         card = data['card_details'][i]
@@ -32,11 +31,11 @@ class UOBCardMapper:
                 if i < num_cards:
                     card = data['card_details'][i]
             else:
-                date_pattern = r'(\d{2}) ({\w{3}})'
+                date_pattern = r'\d{2} ({\w{3}})'
                 # Post date parsing
                 if transaction['post_date']:
                     post_match = re.match(date_pattern, transaction['post_date'])
-                    if statement_date.month == 1 and post_match.group(2) == 'DEC':
+                    if statement_date.month == 1 and post_match.group(1) == 'DEC':
                         post_year = statement_date.year - 1
                     else:
                         post_year = statement_date.year
@@ -46,11 +45,11 @@ class UOBCardMapper:
                 # Trans date parsing
                 if transaction['trans_date']:
                     trans_match = re.match(date_pattern, transaction['trans_date'])
-                    if statement_date.month == 1 and trans_match.group(2) == 'DEC':
+                    if statement_date.month == 1 and trans_match.group(1) == 'DEC':
                         trans_year = statement_date.year - 1
                     else:
                         trans_year = statement_date.year
-                    trans_date = datetime.strptime(transaction['post_date'] + ' ' + str(trans_year), '%d %b %Y')
+                    trans_date = datetime.strptime(transaction['trans_date'] + ' ' + str(trans_year), '%d %b %Y')
                 else:
                     trans_date = None
                 # Amount parsing
@@ -62,7 +61,7 @@ class UOBCardMapper:
                 else:
                     reference = None
 
-                trans_dto = Transaction(
+                transactions.append(Transaction(
                     data['organization'],
                     data['statement_type'],
                     card['number'],
@@ -71,7 +70,6 @@ class UOBCardMapper:
                     transaction['description'],
                     reference,
                     amount
-                )
-                transactions.append(trans_dto)
+                ))
 
         return transactions

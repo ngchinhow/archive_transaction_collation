@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '852d57ce55a941.lhrtunnel.link'
+    '945172e1adbf75.lhrtunnel.link'
 ]
 
 
