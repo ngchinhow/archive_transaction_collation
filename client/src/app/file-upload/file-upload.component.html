@@ -8,8 +8,8 @@
       <h3>Drag and drop a file or select add Image</h3>
     </div>
   </div>
-  <div class="file-upload-content" [style.display]="contentIsVisible">
-    <img class="file-upload-image" src="#" alt="your image" />
+  <div class="file-upload-content" [style.display]="contentIsVisible ? 'block' : 'none'">
+    <img class="file-upload-image" [src]="imageContent" alt="your image" />
     <div class="image-title-wrap">
       <button type="button" (click)="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
     </div>

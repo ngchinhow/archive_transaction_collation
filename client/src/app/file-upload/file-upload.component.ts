@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class FileUploadComponent implements OnInit {
   wrapperIsVisible: boolean = true;
   contentIsVisible: boolean = false;
+  imageContent = '';
 
   constructor() { }
 
@@ -25,7 +26,7 @@ export class FileUploadComponent implements OnInit {
         this.wrapperIsVisible = false;
 
         var result = reader.result == null ? '' : reader.result.toString();
-        document.getElementById('file-upload-image')?.setAttribute('src', result);
+        this.imageContent = result;
         console.log('reached here');
         this.contentIsVisible = true;
       };
