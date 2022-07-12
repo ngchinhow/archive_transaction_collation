@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExtractorService } from '../extractor.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,31 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class FileUploadComponent implements OnInit {
   wrapperIsVisible: boolean = true;
   contentIsVisible: boolean = false;
-  imageContent = '';
+  files: File[] = [];
 
-  constructor() { }
+  constructor(private extractorService: ExtractorService) { }
 
   ngOnInit(): void {
   }
 
   readURL(event: any) {
-    const files = event.target.files;
-    if (files && files[0]) {
-
-      var reader = new FileReader();
-
-      reader.onload = () => {
-        console.info(reader);
-        this.wrapperIsVisible = false;
-
-        var result = reader.result == null ? '' : reader.result.toString();
-        this.imageContent = result;
-        console.log('reached here');
-        this.contentIsVisible = true;
-      };
-
-      reader.readAsDataURL(files[0]);
-
+    const files: FileList = event.target.files;
+    if (files) {
+      this.files = Array.from(files);
+      this.wrapperIsVisible = false;
+      this.contentIsVisible = true;
     } else {
       this.removeUpload();
     }
@@ -45,15 +34,20 @@ export class FileUploadComponent implements OnInit {
     }
     this.contentIsVisible = false;
     this.wrapperIsVisible = true;
+    this.files = [];
+  }
+
+  uploadData() {
+    this.extractorService.uploadFiles(this.files);
   }
 
   mouseIn(div: string) {
     document.getElementById('image-upload-wrap')?.classList.add('image-dropping');
-    console.log('mouse entered: ' + div);
+    console.info('mouse entered: ' + div);
   }
 
   mouseOut(div: string) {
     document.getElementById('image-upload-wrap')?.classList.remove('image-dropping');
-    console.log('mouse leaved: ' + div);
+    console.info('mouse leaved: ' + div);
   }
 }

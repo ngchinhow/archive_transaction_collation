@@ -22,10 +22,9 @@ async def docparser_webhook(request):
         return HttpResponse('received', content_type='text/plain')
 
 
-def test_docparser(request):
-    parser = pydocparser.Parser()
-    parser.login(ENV_DOCPARSER_API_KEY)
-    print(parser.ping())
-    data = parser.get_one_result('UOB Credit Card Parser', 'b4efa1224daf464b31bf76550af8a003')
-    print(data)
-    return HttpResponse('ok')
+@csrf_exempt
+def file_upload(request):
+    print(request.FILES)
+    for file in request.FILES.getlist('file'):
+        print(file.read())
+    return HttpResponse(status=204)
