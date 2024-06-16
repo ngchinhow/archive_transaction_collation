@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ExtractorService } from '../extractor.service';
+import { ExtractorService } from '../services/extractor.service';
 
 @Component({
   selector: 'app-file-upload',

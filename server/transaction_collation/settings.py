@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '4e561af6776429.lhrtunnel.link'
+    '82855c6d29d7e2.lhrtunnel.link'
 ]
 
 CORS_ALLOWED_ORIGINS = [
